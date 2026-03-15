@@ -1,0 +1,53 @@
+print("=== Welcome to Mini Grade Tracker ===")
+print("Just type student names and grades. Type 'done' when finished.\n")
+
+students = []
+grades = []
+
+while True:
+    name = input("Student name: ").strip()
+    if name.lower() == 'done':
+        break
+    
+    while True:
+        try:
+            grade = float(input(f"Grade for {name} (0-100): "))
+            if 0 <= grade <= 100:
+                break
+            print("Please enter a number between 0 and 100.")
+        except ValueError:
+            print("That's not a number... try again 😅")
+
+    students.append(name)
+    grades.append(grade)
+    print(f"→ Added {name} with grade {grade}\n")
+
+# Show results
+if not students:
+    print("Nobody was added... maybe next time ☹️")
+else:
+    print("\n" + "="*35)
+    print("      CLASS GRADE LIST")
+    print("="*35)
+    
+    total = 0
+    best_grade = -1
+    best_student = ""
+    
+    for i in range(len(students)):
+        name = students[i]
+        grade = grades[i]
+        total += grade
+        
+        if grade > best_grade:
+            best_grade = grade
+            best_student = name
+            
+        print(f"{name:.<20} {grade:>5.1f}")
+    
+    average = total / len(students)
+    
+    print("-"*35)
+    print(f"Average grade     : {average:.1f}")
+    print(f"Best student      : {best_student} ({best_grade})")
+    print("="*35)
